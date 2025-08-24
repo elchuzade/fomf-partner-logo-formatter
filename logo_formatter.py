@@ -1,7 +1,6 @@
 import os
-from PIL import Image
-from PIL import ImageFilter
-import cairosvg
+from PIL import Image, ImageFilter
+
 import xml.etree.ElementTree as ET
 
 # Create an output directory if it doesn't exist
@@ -45,22 +44,16 @@ def convert_svg_to_png(svg_path, temp_png_path, max_width=260, max_height=180):
     output_width = int(w * scale)
     output_height = int(h * scale)
 
-    cairosvg.svg2png(
-        url=svg_path,
-        write_to=temp_png_path,
-        output_width=output_width,
-        output_height=output_height
-    )
+    # This function is no longer used as SVG support is removed.
+    # If SVG files are still encountered, this will raise an error.
+    raise ValueError("SVG files are no longer supported. Please remove SVG files from your input.")
 
 
 def process_logo(input_path, output_path, target_size=(300, 220), background_color=(255, 255, 255)):
     ext = os.path.splitext(input_path)[1].lower()
 
     if ext == ".svg":
-        temp_png = input_path + ".temp.png"
-        convert_svg_to_png(input_path, temp_png)
-        image = Image.open(temp_png).convert("RGBA")
-        os.remove(temp_png)
+        raise ValueError("SVG files are no longer supported. Please remove SVG files from your input.")
     else:
         image = Image.open(input_path).convert("RGBA")
 

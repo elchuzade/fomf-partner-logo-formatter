@@ -9,7 +9,7 @@ from logo_formatter import process_logo
 
 st.title("Logo Formatter")
 
-uploaded_file = st.file_uploader("Upload a logo file (PNG, JPG, JPEG, SVG)", type=['png', 'jpg', 'jpeg', 'svg'])
+uploaded_file = st.file_uploader("Upload a logo file (PNG, JPG, JPEG)", type=['png', 'jpg', 'jpeg'])
 
 if uploaded_file:
     # Save uploaded file temporarily
