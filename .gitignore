@@ -35,6 +35,12 @@ ENV/
 .DS_Store
 Thumbs.db
 
+# Flask
+instance/
+.webassets-cache
+temp_uploads/
+*.db
+
 # Temporary files
 *.tmp
 *.temp

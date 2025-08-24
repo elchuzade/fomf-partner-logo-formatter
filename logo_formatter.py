@@ -3,6 +3,21 @@ from PIL import Image, ImageFilter
 
 import xml.etree.ElementTree as ET
 
+# Try to import SVG libraries
+try:
+    from svglib.svglib import svg2rlg
+    from reportlab.graphics import renderPM
+    SVG_SUPPORT = True
+    SVG_LIBRARY = "svglib"
+except ImportError:
+    try:
+        import cairosvg
+        SVG_SUPPORT = True
+        SVG_LIBRARY = "cairosvg"
+    except ImportError:
+        SVG_SUPPORT = False
+        print("Warning: No SVG library available. SVG files will not be supported.")
+
 # Create an output directory if it doesn't exist
 output_dir = "processed_logos"
 os.makedirs(output_dir, exist_ok=True)
@@ -34,6 +49,9 @@ def get_svg_size(svg_path):
 
 
 def convert_svg_to_png(svg_path, temp_png_path, max_width=260, max_height=180):
+    if not SVG_SUPPORT:
+        raise ValueError("SVG files are not supported. Please install svglib or cairosvg.")
+    
     w, h = get_svg_size(svg_path)
 
     # Calculate scale factor to fit inside max_width x max_height keeping aspect ratio
@@ -44,16 +62,31 @@ def convert_svg_to_png(svg_path, temp_png_path, max_width=260, max_height=180):
     output_width = int(w * scale)
     output_height = int(h * scale)
 
-    # This function is no longer used as SVG support is removed.
-    # If SVG files are still encountered, this will raise an error.
-    raise ValueError("SVG files are no longer supported. Please remove SVG files from your input.")
+    if SVG_LIBRARY == "svglib":
+        drawing = svg2rlg(svg_path)
+        renderPM.drawToFile(drawing, temp_png_path, fmt="PNG")
+    elif SVG_LIBRARY == "cairosvg":
+        cairosvg.svg2png(
+            url=svg_path,
+            write_to=temp_png_path,
+            output_width=output_width,
+            output_height=output_height
+        )
+    else:
+        raise ValueError("No SVG library available for conversion.")
 
 
 def process_logo(input_path, output_path, target_size=(300, 220), background_color=(255, 255, 255)):
     ext = os.path.splitext(input_path)[1].lower()
 
     if ext == ".svg":
-        raise ValueError("SVG files are no longer supported. Please remove SVG files from your input.")
+        if not SVG_SUPPORT:
+            raise ValueError("SVG files are not supported. Please install svglib or cairosvg for SVG support.")
+        
+        temp_png = input_path + ".temp.png"
+        convert_svg_to_png(input_path, temp_png)
+        image = Image.open(temp_png).convert("RGBA")
+        os.remove(temp_png)
     else:
         image = Image.open(input_path).convert("RGBA")
 

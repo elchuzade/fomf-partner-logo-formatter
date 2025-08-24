@@ -1,14 +1,15 @@
-# Logo Formatter Web App
+# Logo Formatter - Flask Web App
 
-A web application that formats logos with consistent sizing and padding. Upload your logo and get a professionally formatted version with a white background, centered on a 300x220 canvas.
+A professional web application that formats logos with consistent sizing and padding. Built with Flask for robust performance and beautiful UI.
 
 ## Features
 
-- Supports PNG, JPG, JPEG, and SVG files
-- Automatically resizes logos to fit within 260x180 pixels (maintaining aspect ratio)
-- Centers logos on a 300x220 canvas with white background
-- Removes transparency and applies sharpening
-- Download processed logos as PNG files
+- **Modern Web Interface** - Beautiful, responsive design with drag & drop
+- **Multi-format Support** - PNG, JPG, JPEG, and SVG files
+- **Professional Processing** - Logos resized to fit within 260×180 pixels
+- **Perfect Centering** - Logos centered on 300×220 canvas with padding
+- **Quality Enhancement** - Sharpening and transparency removal
+- **Instant Download** - Processed logos available immediately
 
 ## Local Development
 
@@ -18,50 +19,77 @@ A web application that formats logos with consistent sizing and padding. Upload 
    pip install -r requirements.txt
    ```
 
-2. **Run the app:**
+2. **Run the Flask app:**
 
    ```bash
-   streamlit run app.py
+   python app_flask.py
    ```
 
-3. **Open your browser** and go to `http://localhost:8501`
+3. **Open your browser** and go to `http://localhost:5002`
 
 ## Deployment Options
 
-### Option 1: Streamlit Cloud (Easiest)
+### Option 1: Render (Recommended - Free)
 
 1. Push your code to GitHub
-2. Go to [share.streamlit.io](https://share.streamlit.io)
-3. Connect your GitHub repository
-4. Deploy automatically
+2. Go to [render.com](https://render.com)
+3. Create a new Web Service
+4. Connect your GitHub repository
+5. Set build command: `pip install -r requirements.txt`
+6. Set start command: `python app_flask.py`
+7. Deploy automatically
 
-### Option 2: Heroku
+### Option 2: Railway
 
-1. Create a `Procfile`:
-   ```
-   web: streamlit run app.py --server.port=$PORT --server.address=0.0.0.0
-   ```
-2. Deploy to Heroku
+1. Push to GitHub
+2. Go to [railway.app](https://railway.app)
+3. Connect repository
+4. Auto-deploys on push
 
-### Option 3: Docker
+### Option 3: Heroku
 
-1. Build and run with Docker
-2. Deploy to any cloud platform
-
-## Usage
-
-1. Upload your logo file
-2. Wait for processing
-3. Download the formatted logo
-4. The processed logo will have consistent dimensions and padding
+1. Install Heroku CLI
+2. Create app: `heroku create your-app-name`
+3. Deploy: `git push heroku main`
 
 ## File Structure
 
 ```
 logo-formatter/
-├── app.py              # Streamlit web app
-├── logo_formatter.py   # Core logo processing logic
-├── requirements.txt    # Python dependencies
-├── README.md          # This file
-└── processed_logos/   # Output directory
+├── app_flask.py          # Flask application
+├── logo_formatter.py     # Core logo processing logic
+├── templates/
+│   └── index.html        # Professional HTML template
+├── requirements.txt       # Python dependencies
+├── Procfile              # Deployment configuration
+├── runtime.txt           # Python version
+└── README.md             # This file
 ```
+
+## Technology Stack
+
+- **Backend**: Flask (Python)
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Image Processing**: Pillow, svglib
+- **Styling**: Custom CSS with gradients and animations
+- **Deployment**: Render, Railway, or Heroku
+
+## Usage
+
+1. **Upload**: Drag & drop or click to browse for logo files
+2. **Process**: Automatic formatting with progress indicator
+3. **Preview**: Side-by-side comparison of original vs. formatted
+4. **Download**: Get your professionally formatted logo
+
+## Benefits of Flask over Streamlit
+
+✅ **Professional UI** - Custom HTML/CSS design  
+✅ **Better Performance** - No Python overhead for UI  
+✅ **Full Control** - Complete styling and layout control  
+✅ **Scalability** - Handle more users efficiently  
+✅ **Mobile Responsive** - Perfect on all devices  
+✅ **Custom Features** - Drag & drop, animations, etc.
+
+## Support
+
+For issues or questions, check the error logs or contact support.
