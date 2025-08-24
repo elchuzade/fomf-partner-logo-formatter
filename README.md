@@ -36,7 +36,7 @@ A professional web application that formats logos with consistent sizing and pad
 3. Create a new Web Service
 4. Connect your GitHub repository
 5. Set build command: `pip install -r requirements.txt`
-6. Set start command: `python app_flask.py`
+6. Set start command: `gunicorn wsgi:app`
 7. Deploy automatically
 
 ### Option 2: Railway
@@ -58,6 +58,7 @@ A professional web application that formats logos with consistent sizing and pad
 logo-formatter/
 ├── app_flask.py          # Flask application
 ├── logo_formatter.py     # Core logo processing logic
+├── wsgi.py              # WSGI entry point for production
 ├── templates/
 │   └── index.html        # Professional HTML template
 ├── requirements.txt       # Python dependencies
@@ -71,6 +72,7 @@ logo-formatter/
 - **Backend**: Flask (Python)
 - **Frontend**: HTML5, CSS3, JavaScript
 - **Image Processing**: Pillow, svglib
+- **Production Server**: Gunicorn
 - **Styling**: Custom CSS with gradients and animations
 - **Deployment**: Render, Railway, or Heroku
 
@@ -81,14 +83,15 @@ logo-formatter/
 3. **Preview**: Side-by-side comparison of original vs. formatted
 4. **Download**: Get your professionally formatted logo
 
-## Benefits of Flask over Streamlit
+## Benefits of Flask Architecture
 
 ✅ **Professional UI** - Custom HTML/CSS design  
 ✅ **Better Performance** - No Python overhead for UI  
 ✅ **Full Control** - Complete styling and layout control  
 ✅ **Scalability** - Handle more users efficiently  
 ✅ **Mobile Responsive** - Perfect on all devices  
-✅ **Custom Features** - Drag & drop, animations, etc.
+✅ **Production Ready** - Gunicorn WSGI server  
+✅ **Perfect Borders** - No more display issues
 
 ## Support
 
